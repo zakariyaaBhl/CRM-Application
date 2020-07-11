@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +37,10 @@
 			    <a href="${pageContext.request.contextPath}/show" class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Products
 			    <span class="caret"></span></a>
 			    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Products</a></li>
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Product</a></li>
+			    	<security:authorize access="hasRole('MANAGER')">
+			      		<li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Products</a></li>
+			      		<li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Product</a></li>
+			      	</security:authorize>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
 			      <li role="presentation" class="divider"></li>
@@ -49,8 +52,10 @@
 			    <a href="${pageContext.request.contextPath}/show" class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Categories
 			    <span class="caret"></span></a>
 			    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Categories</a></li>
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Category</a></li>
+			    	<security:authorize access="hasRole('MANAGER')">
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Categories</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Category</a></li>
+			      	</security:authorize>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
 			      <li role="presentation" class="divider"></li>

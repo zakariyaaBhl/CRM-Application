@@ -60,12 +60,33 @@
 		    <form:form action="${pageContext.request.contextPath}/register/processRegistrationForm" method="POST" modelAttribute="crmUser">
 		        <h2 class="text-center">Log In</h2>       
 		        <div class="form-group">
-		        	<span class="form-group-addon glyphicon glyphicon-user"><i class="glyphicon glyphicon-user"></i></span>
-		            <input type="text" class="form-control" placeholder="Username" name="username" required="required">
+		        	
+		        	<label for="username">UserName :</label>
+		        	<i><form:errors path="username" cssClass="text-danger" cssStyle="font-size: 10px;"/></i>
+		            <input type="text" class="form-control" id="username" value="${crmUser.username}" name="username" >
 		        </div>
 		        <div class="form-group">
-		        	<span class="form-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
-		            <input type="password" class="form-control" placeholder="Password" name="password" required="required">
+		        	<label for="password">Password :</label>
+		        	<i><form:errors path="password" cssClass="text-danger" cssStyle="font-size: 10px;"/></i>
+		            <input type="password" id="password" class="form-control" value="${crmUser.password}" name="password">
+		        </div>
+		        
+		        <div class="form-group">
+		        	<label for="firstName">FirstName :</label>
+		        	<i><form:errors path="firstName" cssClass="text-danger" cssStyle="font-size: 10px;"/></i> 
+		            <input type="text" class="form-control" id="firstName" value="${crmUser.firstName}" name="firstName">
+		        </div>
+		        
+		        <div class="form-group">
+		        	<label for="lastName">lastName :</label>
+		        	<i><form:errors path="lastName" cssClass="text-danger" cssStyle="font-size: 10px;" /></i>
+		            <input type="text" class="form-control" id="lastName" value="${crmUser.lastName}" name="lastName" >
+		        </div>
+		        
+		        <div class="form-group">
+		        	<label for="email">Email :</label>
+		        	<i><form:errors path="email" cssClass="text-danger" cssStyle="font-size: 10px;"/></i>
+		            <input type="email" class="form-control" id="email" value="${crmUser.email}" name="email">
 		        </div>
 		        <div class="form-group">
 		            <button type="submit" class="btn btn-primary btn-block">Register</button>

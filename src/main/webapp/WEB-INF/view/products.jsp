@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +38,10 @@
 			    <a href="${pageContext.request.contextPath}/show" class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Products
 			    <span class="caret"></span></a>
 			    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Products</a></li>
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Product</a></li>
+			    	<security:authorize access="hasRole('MANAGER')">
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Products</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Product</a></li>
+			      	</security:authorize>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
 			      <li role="presentation" class="divider"></li>
@@ -49,8 +53,10 @@
 			    <a href="${pageContext.request.contextPath}/show" class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Categories
 			    <span class="caret"></span></a>
 			    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Categories</a></li>
-			      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Category</a></li>
+			    	<security:authorize access="hasRole('MANAGER')">
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/show">All Categories</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/addForm">Add new Category</a></li>
+			      	</security:authorize>	
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
 			      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
 			      <li role="presentation" class="divider"></li>
@@ -64,8 +70,11 @@
               
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="${pageContext.request.contextPath}/logout" class="btn btn-default">Sign Out<span class="sr-only">(current)</span></a></li>
-              
+              <li class="active">
+	             	<form:form method="POST" action="${pageContext.request.contextPath}/logout">
+	              		<input type="submit" value="Sign Out" class="btn btn-link" style="margin-top: 8px;"><span class="sr-only">(current)</span>
+	              	</form:form>
+	          </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -82,8 +91,11 @@
 						<th class="text-center">Désignation</th>
 						<th class="text-center">Prix</th>
 						<th class="text-center">Quantité</th>
-						<th></th>
-						<th></th>
+						
+						<security:authorize access="hasRole('MANAGER')">
+							<th></th>
+							<th></th>
+						</security:authorize>
 						
 					</tr>
 					
@@ -93,6 +105,8 @@
 							<td class="text-center">${p.designation}</td>
 							<td class="text-center">${p.prix}</td>
 							<td class="text-center">${p.quantite}</td>
+							
+							<security:authorize access="hasRole('MANAGER')">
 							<td class="text-center">
 								<a type="submit" class="btn btn-default" href="${pageContext.request.contextPath}/updateForm?id=${p.id}">Update</a>
 							</td>
@@ -101,6 +115,7 @@
 								onclick="return confirm('are you sure ?')"
 								class="btn btn-default" href="${pageContext.request.contextPath}/deleteProd?id=${p.id}">Delete</a>
 							</td>
+							</security:authorize>
 						</tr>
 					</c:forEach>
 					

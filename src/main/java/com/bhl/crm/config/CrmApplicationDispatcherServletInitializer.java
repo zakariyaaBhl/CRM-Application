@@ -14,7 +14,7 @@ public class CrmApplicationDispatcherServletInitializer extends AbstractAnnotati
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
 		return new Class[] {
-				CrmConfig.class
+				CrmConfig.class, WebMvcConfig.class
 		};
 	}
 

@@ -28,8 +28,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class CrmConfig implements WebMvcConfigurer{
 	
 	@Autowired
-	 private Environment env;
-	private Logger logger = Logger.getLogger(getClass().getName());
+		private Environment env;
+		private Logger logger = Logger.getLogger(getClass().getName());
 	
 	@Bean
 	public ViewResolver viewResolver() {
@@ -39,6 +39,8 @@ public class CrmConfig implements WebMvcConfigurer{
 		return viewResolver;
 	}
 	
+	/*-- Data source for Product --*/
+	/*
 	@Bean
 	public DataSource productDataSource() {
 		ComboPooledDataSource productDataSource= new ComboPooledDataSource();
@@ -64,9 +66,11 @@ public class CrmConfig implements WebMvcConfigurer{
 		
 		return productDataSource;
 	}
+	*/
 	
+	/*-- Data source for User authentication --*/
 	@Bean
-	public DataSource securityDataSource() {
+	public DataSource dataSourceForUser() {
 		ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
 		try {
 			securityDataSource.setDriverClass(env.getProperty("security.jdbc.driver"));
@@ -104,28 +108,42 @@ public class CrmConfig implements WebMvcConfigurer{
 	 * The next method creates the Hibernate session factory based on the datasource and configuration properties
 	 * Setup Hibernate session factory : session factory is what hibernate uses to talk to our DB 
 	 * --*/
-	
+	/*-- Session factory for Products --*/
+			/*
+			@Bean
+			public LocalSessionFactoryBean getSessionFactory() {
+				LocalSessionFactoryBean factory= new LocalSessionFactoryBean();
+				factory.setDataSource(productDataSource());
+				factory.setPackagesToScan("com.bhl.crm.entities");
+				factory.setHibernateProperties(getHibernateProperties());
+				return factory;
+			}
+			*/	
 	@Bean
-	public LocalSessionFactoryBean getSessionFactory() {
+	public LocalSessionFactoryBean sessionFactoryForUser() {
 		LocalSessionFactoryBean factory= new LocalSessionFactoryBean();
-		factory.setDataSource(productDataSource());
+		factory.setDataSource(dataSourceForUser());
 		factory.setPackagesToScan("com.bhl.crm.entities");
 		factory.setHibernateProperties(getHibernateProperties());
-		
-		
 		return factory;
 	}
 	
 	/*-- The next method configures the Hibernate transaction manager --*/
+			/*
+			@Bean
+			public HibernateTransactionManager transactionManager() {
+				HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+				transactionManager.setSessionFactory(getSessionFactory().getObject());
+				return transactionManager;
+			}
+			*/
 	
 	@Bean
-	public HibernateTransactionManager transactionManager() {
+	public HibernateTransactionManager transactionManagerforUser() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-		transactionManager.setSessionFactory(getSessionFactory().getObject());
+		transactionManager.setSessionFactory(sessionFactoryForUser().getObject());
 		return transactionManager;
 	}
-	
-	
 	
 	
 	

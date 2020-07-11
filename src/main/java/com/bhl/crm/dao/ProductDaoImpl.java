@@ -14,11 +14,11 @@ import com.bhl.crm.entities.Product;
 
 
 @Repository
-@Transactional
+@Transactional("transactionManagerForProduct")
 public class ProductDaoImpl implements IProductDao {
 
 	@Autowired
-	@Qualifier("getSessionFactory")
+	@Qualifier("SessionFactoryForProduct")
 	private SessionFactory factory;
 	
 	public List<Product> getAllProducts() {
