@@ -27,6 +27,7 @@ import com.bhl.crm.user.CrmUser;
 @RequestMapping("/register")
 public class RegistrationController {
 
+	/*-- UserDetailsManager bean Injection --*/
 	@Autowired
 	private UserDetailsManager userDetailsManager;
 	private BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();

@@ -50,6 +50,12 @@ public class SecurityAppConfig extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder();
 	}
 	
+	/*-- Create a UserDetailsManager bean for manage our bean
+	 * 		create a JDBC User Details Manager bean. This is based on our security datasource. 
+	 * 		It provides access to the database for creating users. We'll also use JdbcUserDetailsManager to check if a user exists.
+	 * 		The JdbcUserDetailsManager has all of the low-level JDBC code for accessing the security database. 
+	 * 		There is no need for us to create the JDBC code JdbcUserDetailsManager will handle it for us
+	 *  --*/
 	@Bean
 	public UserDetailsManager userDetailsManager() {
 		JdbcUserDetailsManager jdbcUserDetailsManager= new JdbcUserDetailsManager();
